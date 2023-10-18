@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.joicelima.EmailService.application.EmailSenderService;
+import com.joicelima.EmailService.core.EmailRequest;
 import com.joicelima.EmailService.core.exceptions.EmailServiceException;
 
 @RestController
-@RequestMapping("api/email")
+@RequestMapping("/api/email")
 public class EmailSenderController {
     private final EmailSenderService emailSenderService;
 
@@ -27,7 +28,7 @@ public class EmailSenderController {
  public ResponseEntity<String> sendEmail(@RequestBody EmailRequest request){
     try{
         this.emailSenderService.sendEmail(request.to(), request.subject(), request.body());
-        return ResponseEntity.ok("Email send sucessfully")
+        return ResponseEntity.ok("Email send sucessfully");
     } catch(EmailServiceException ex){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while sending email");
     }
