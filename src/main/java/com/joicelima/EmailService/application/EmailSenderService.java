@@ -1,13 +1,24 @@
 package com.joicelima.EmailService.application;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.joicelima.EmailService.adapters.EmailSenderGateway;
 import com.joicelima.EmailService.core.EmailSenderUseCase;
 
 public class EmailSenderService implements EmailSenderUseCase {
 
+    private final EmailSenderGateway emailSenderGateway;
+    private EmailSenderGateway emailGateway;
+
+    @Autowired
+    public EmailSenderService(EmailSenderGateway emailSenderGateway){
+        this.emailSenderGateway = emailGateway;
+    }
+
     @Override
     public void sendEmail(String to, String subject, String body) {
-        throw new UnsupportedOperationException("Unimplemented method 'sendEmail'");
+        this.emailSenderGateway.sendEmail(to, subject, body);
     }
     
 
